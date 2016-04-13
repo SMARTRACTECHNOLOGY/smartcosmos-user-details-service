@@ -1,0 +1,33 @@
+= SMART COSMOS Extension: User Details Service
+SMARTRAC Technology Fletcher Inc <api@smartrac-group.com>
+ifdef::env-github[:USER: SMARTRACTECHNOLOGY]
+ifdef::env-github[:REPO: smartcosmos-user-details-service]
+ifdef::env-github[:BRANCH: master]
+
+image::https://travis-ci.org/{USER}/{REPO}.svg?branch={BRANCH}[Build Status, link=https://travis-ci.org/{USER}/{REPO}]
+
+The **User Details Service** is slight modification of the __Directory Service__ in Objects v2.  The concept behind the directory service was that it provided a means to look up individual credentials from an external source, and that external source would provide a means for authentication.  The User Details Service plays a similar role, but allows greater flexibility in *what* the particular service is looking up.  This allows expansion later on into a *client* details service, and an *extension* details service.  All of these roles _could_ be filled by the same service.  For example, in an industrial setting there is no concept of someone logging in, you merely want to make sure all data in the cluster is authenticated and more importantly you can instantly establish non-repudiation (authenticity).  You might be using certificates to authenticate in this case, and you need another service to manage certificates rather than usernames and passwords.
+
+== Retrieving User Roles
+
+This assumes your relative location is this folder.  The **Auth Server** needs to authenticate against the **User Details Service** with a secure login and password.  This is defined inside your SMART COSMOS Configuration under `smartcosmos.security.resource.userDetails.username` and `smartcosmos.security.resource.userDetails.password`
+
+----
+curl -X POST http://user:password@localhost:42000/test --data "{}" -H "Content-Type: application/json" | jq
+----
+
+If you changed `user` and `password` to match correctly, you should see something similar to the following:
+
+----
+[
+  "ROLE_USER"
+]
+----
+
+This represents the array of *roles* that the user (in this case with username *test* and empty credentials) has on the cluster.
+
+Not to be confused with the credentials the **Auth Server** used to authenticate against the **User Details Service**.
+
+== Not a Production Service
+
+The User Details Service outlined here is not meant for production use, and is merely provided here as an example and tool for use in development.  In a production environment, you would want to provide a robust backend authentication device using something like LDAP or https://stormpath.com/[Stormpath]
