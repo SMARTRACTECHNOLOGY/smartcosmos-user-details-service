@@ -18,17 +18,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Slf4j
 public class UserDetailsService {
 
-	public static void main(String[] args) {
-		new SpringApplicationBuilder(UserDetailsService.class).web(true).run(args);
-	}
+    public static void main(String[] args) {
+        new SpringApplicationBuilder(UserDetailsService.class).web(true).run(args);
+    }
 
-	@Bean
-	PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	@Bean
-	ObjectMapper objectMapper() {
-		return new ObjectMapper();
-	}
+    @Bean
+    ObjectMapper objectMapper() {
+        return new ObjectMapper();
+    }
 }

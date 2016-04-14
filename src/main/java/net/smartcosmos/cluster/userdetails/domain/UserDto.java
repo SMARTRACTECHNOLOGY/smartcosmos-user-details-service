@@ -18,17 +18,17 @@ import lombok.*;
 @ToString(exclude = "passwordHash")
 public class UserDto {
 
-	@NonNull
-	private final String accountUrn;
+    @NonNull
+    private final String accountUrn;
 
-	@NonNull
-	private final String userUrn;
+    @NonNull
+    private final String userUrn;
 
-	@NonNull
-	private final String username;
+    @NonNull
+    private final String username;
 
-	private String passwordHash;
+    private String passwordHash;
 
-	@NonNull
-	private List<String> roles;
+    @NonNull
+    private List<String> roles;
 }
