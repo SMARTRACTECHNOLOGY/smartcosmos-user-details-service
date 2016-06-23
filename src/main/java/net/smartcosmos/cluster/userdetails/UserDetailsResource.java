@@ -45,8 +45,8 @@ public class UserDetailsResource {
             passwordHash = passwordEncoder.encode(credentials);
         }
 
-        final String accountUrn = "urn:account:53f452c2-5a01-44fd-9956-3ecff7c32b30";
-        final String userUrn = "urn:user:53f452c2-5a01-44fd-9956-3ecff7c32b30";
+        final String accountUrn = "urn:account:uuid:53f452c2-5a01-44fd-9956-3ecff7c32b30";
+        final String userUrn = "urn:user:uuid:53f452c2-5a01-44fd-9956-3ecff7c32b30";
 
         return UserDto.builder().accountUrn(accountUrn).userUrn(userUrn)
                 .username(username).passwordHash(passwordHash)
@@ -69,8 +69,8 @@ public class UserDetailsResource {
 
         log.info("Requested information for details only on username {}", username);
 
-        final String accountUrn = "urn:account:53f452c2-5a01-44fd-9956-3ecff7c32b30";
-        final String userUrn = "urn:user:53f452c2-5a01-44fd-9956-3ecff7c32b30";
+        final String accountUrn = "urn:account:uuid:53f452c2-5a01-44fd-9956-3ecff7c32b30";
+        final String userUrn = "urn:user:uuid:53f452c2-5a01-44fd-9956-3ecff7c32b30";
 
         return UserDto.builder().accountUrn(accountUrn).userUrn(userUrn)
                 .username(username).roles(Arrays.asList("ROLE_USER")).build();
