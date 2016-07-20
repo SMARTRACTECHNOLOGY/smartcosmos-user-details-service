@@ -19,7 +19,7 @@ import lombok.*;
 public class UserDto {
 
     @NonNull
-    private final String accountUrn;
+    private final String tenantUrn;
 
     @NonNull
     private final String userUrn;
@@ -30,5 +30,5 @@ public class UserDto {
     private String passwordHash;
 
     @NonNull
-    private List<String> roles;
+    private List<String> authorities;
 }
