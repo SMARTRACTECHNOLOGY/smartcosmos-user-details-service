@@ -20,11 +20,11 @@ If you changed `user` and `password` to match correctly, you should see somethin
 
 ----
 [
-  "ROLE_USER"
+  "https://authorities.smartcosmos.net/things/read"
 ]
 ----
 
-This represents the array of *roles* that the user (in this case with username *test* and empty credentials) has on the cluster.
+This represents the array of *authorities* that the user (in this case with username *test* and empty credentials) has on the cluster.
 
 Not to be confused with the credentials the **Auth Server** used to authenticate against the **User Details Service**.
 

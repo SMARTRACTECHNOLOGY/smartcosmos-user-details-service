@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import lombok.extern.slf4j.Slf4j;
-import net.smartcosmos.cluster.userdetails.domain.UserDto;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
@@ -12,7 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import net.smartcosmos.cluster.userdetails.domain.UserDto;
 
 @RestController
 @Slf4j
@@ -48,9 +53,9 @@ public class UserDetailsResource {
         final String accountUrn = "urn:account:uuid:53f452c2-5a01-44fd-9956-3ecff7c32b30";
         final String userUrn = "urn:user:uuid:53f452c2-5a01-44fd-9956-3ecff7c32b30";
 
-        return UserDto.builder().accountUrn(accountUrn).userUrn(userUrn)
+        return UserDto.builder().tenantUrn(accountUrn).userUrn(userUrn)
                 .username(username).passwordHash(passwordHash)
-                .roles(Arrays.asList("ROLE_USER")).build();
+                .authorities(Arrays.asList("https://authorities.smartcosmos.net/things/read")).build();
     }
 
     /**
@@ -72,8 +77,8 @@ public class UserDetailsResource {
         final String accountUrn = "urn:account:uuid:53f452c2-5a01-44fd-9956-3ecff7c32b30";
         final String userUrn = "urn:user:uuid:53f452c2-5a01-44fd-9956-3ecff7c32b30";
 
-        return UserDto.builder().accountUrn(accountUrn).userUrn(userUrn)
-                .username(username).roles(Arrays.asList("ROLE_USER")).build();
+        return UserDto.builder().tenantUrn(accountUrn).userUrn(userUrn)
+                .username(username).authorities(Arrays.asList("https://authorities.smartcosmos.net/things/read")).build();
 
     }
 }
