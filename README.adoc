@@ -13,15 +13,23 @@ The **User Details Service** is slight modification of the __Directory Service__
 This assumes your relative location is this folder.  The **Auth Server** needs to authenticate against the **User Details Service** with a secure login and password.  This is defined inside your SMART COSMOS Configuration under `smartcosmos.security.resource.userDetails.username` and `smartcosmos.security.resource.userDetails.password`
 
 ----
-curl -X POST http://user:password@localhost:42000/test --data "{}" -H "Content-Type: application/json" | jq
+curl -X POST http://user:password@localhost:42000/authenticate \
+--data '{"details":{"grant_type":"password","scope":"read","username":"test"},"authorities":[],"authenticated":false,"principal":"test","credentials":"password","":"test"}' \
+-H "Content-Type: application/json" | json_pp
 ----
 
-If you changed `user` and `password` to match correctly, you should see something similar to the following:
+If you changed `user` and `password` in the request to match correctly, you should see something similar to the following:
 
 ----
-[
-  "https://authorities.smartcosmos.net/things/read"
-]
+{
+   "authorities" : [
+      "https://authorities.smartcosmos.net/things/read"
+   ],
+   "tenantUrn" : "urn:account:uuid:53f452c2-5a01-44fd-9956-3ecff7c32b30",
+   "userUrn" : "urn:user:uuid:53f452c2-5a01-44fd-9956-3ecff7c32b30",
+   "username" : "test",
+   "passwordHash" : ""
+}
 ----
 
 This represents the array of *authorities* that the user (in this case with username *test* and empty credentials) has on the cluster.
