@@ -1,7 +1,9 @@
 package net.smartcosmos.cluster.userdetails;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import javax.validation.Valid;
 
 import lombok.extern.slf4j.Slf4j;
@@ -51,7 +53,36 @@ public class UserDetailsResource {
         final String userUrn = "urn:user:uuid:53f452c2-5a01-44fd-9956-3ecff7c32b30";
 
         return UserDto.builder().tenantUrn(accountUrn).userUrn(userUrn)
-                .username(authentication.getName()).passwordHash(passwordHash)
-                .authorities(Arrays.asList("https://authorities.smartcosmos.net/things/read")).build();
+            .username(authentication.getName()).passwordHash(passwordHash)
+            .authorities(getAuthorities())
+            .build();
+    }
+
+    /**
+     * Return all available authorities
+     *
+     * @return List of authorities
+     */
+    private List<String> getAuthorities() {
+        List<String> authorities = new ArrayList<>();
+
+        // Things
+        authorities.add("https://authorities.smartcosmos.net/things/create");
+        authorities.add("https://authorities.smartcosmos.net/things/read");
+        authorities.add("https://authorities.smartcosmos.net/things/update");
+        authorities.add("https://authorities.smartcosmos.net/things/delete");
+
+        // Metadata
+        authorities.add("https://authorities.smartcosmos.net/metadata/create");
+        authorities.add("https://authorities.smartcosmos.net/metadata/read");
+        authorities.add("https://authorities.smartcosmos.net/metadata/update");
+        authorities.add("https://authorities.smartcosmos.net/metadata/delete");
+
+        // Relationships
+        authorities.add("https://authorities.smartcosmos.net/relationships/create");
+        authorities.add("https://authorities.smartcosmos.net/relationships/read");
+        authorities.add("https://authorities.smartcosmos.net/relationships/delete");
+
+        return authorities;
     }
 }
