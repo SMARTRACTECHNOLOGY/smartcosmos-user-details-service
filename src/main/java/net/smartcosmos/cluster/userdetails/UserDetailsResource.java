@@ -2,14 +2,12 @@ package net.smartcosmos.cluster.userdetails;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.validation.Valid;
 
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.lang.StringUtils;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,9 +26,6 @@ public class UserDetailsResource {
 
     @Autowired
     PasswordEncoder passwordEncoder;
-
-    @Autowired
-    ObjectMapper objectMapper;
 
     @RequestMapping(value = "authenticate", method = RequestMethod.POST)
     public UserDto authenticate(@RequestBody @Valid AuthenticateRequest authentication)
