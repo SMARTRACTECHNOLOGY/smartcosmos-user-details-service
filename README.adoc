@@ -6,13 +6,13 @@ ifdef::env-github[:BRANCH: master]
 
 image::https://travis-ci.org/{USER}/{REPO}.svg?branch={BRANCH}[Build Status, link=https://travis-ci.org/{USER}/{REPO}]
 
-IMPORTANT: This is a deprecated repository, in favor of: https://github.com/SMARTRACTECHNOLOGY/smartcosmos-edge-user-devkit[smartcosmos-edge-user-devkit].
+IMPORTANT: This is a deprecated repository, in favor of: https://github.com/SMARTRACTECHNOLOGY/smartcosmos-user-details-devkit[smartcosmos-user-details-devkit].
 
 The **User Details Service** is slight modification of the __Directory Service__ in Objects v2.  The concept behind the directory service was that it provided a means to look up individual credentials from an external source, and that external source would provide a means for authentication.  The User Details Service plays a similar role, but allows greater flexibility in *what* the particular service is looking up.  This allows expansion later on into a *client* details service, and an *extension* details service.  All of these roles _could_ be filled by the same service.  For example, in an industrial setting there is no concept of someone logging in, you merely want to make sure all data in the cluster is authenticated and more importantly you can instantly establish non-repudiation (authenticity).  You might be using certificates to authenticate in this case, and you need another service to manage certificates rather than usernames and passwords.
 
-== Retrieving User Roles
+== Retrieving User Authorities
 
-This assumes your relative location is this folder.  The **Auth Server** needs to authenticate against the **User Details Service** with a secure login and password.  This is defined inside your SMART COSMOS Configuration under `smartcosmos.security.resource.userDetails.username` and `smartcosmos.security.resource.userDetails.password`
+This assumes your relative location is this folder.  The **Auth Server** needs to authenticate against the **User Details Service** with a secure login and password.  This is defined inside your SMART COSMOS Configuration under `smartcosmos.security.resource.user-details.name` and `smartcosmos.security.resource.user-details.password`
 
 ----
 curl -X POST http://user:password@localhost:42000/authenticate \
