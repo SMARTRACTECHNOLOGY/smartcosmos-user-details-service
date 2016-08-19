@@ -12,7 +12,7 @@ The **User Details Service** is slight modification of the __Directory Service__
 
 == Retrieving User Roles
 
-This assumes your relative location is this folder.  The **Auth Server** needs to authenticate against the **User Details Service** with a secure login and password.  This is defined inside your SMART COSMOS Configuration under `smartcosmos.security.resource.userDetails.name` and `smartcosmos.security.resource.userDetails.password`
+This assumes your relative location is this folder.  The **Auth Server** needs to authenticate against the **User Details Service** with a secure login and password.  This is defined inside your SMART COSMOS Configuration under `smartcosmos.security.resource.user-details.name` and `smartcosmos.security.resource.user-details.password`
 
 ----
 curl -X POST http://user:password@localhost:42000/authenticate \
