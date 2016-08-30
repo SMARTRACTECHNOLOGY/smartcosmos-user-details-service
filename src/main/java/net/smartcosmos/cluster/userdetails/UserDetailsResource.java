@@ -2,6 +2,7 @@ package net.smartcosmos.cluster.userdetails;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.validation.Valid;
 
@@ -29,10 +30,10 @@ public class UserDetailsResource {
 
     @RequestMapping(value = "authenticate", method = RequestMethod.POST)
     public UserDto authenticate(@RequestBody @Valid AuthenticateRequest authentication)
-                    throws UsernameNotFoundException, IOException {
+        throws UsernameNotFoundException, IOException {
 
         log.info("Requested information on username {} with {}", authentication.getName(),
-                authentication);
+                 authentication);
 
         String passwordHash = null;
         if (StringUtils.isNotBlank(authentication.getCredentials())) {
@@ -59,24 +60,46 @@ public class UserDetailsResource {
      * @return List of authorities
      */
     private List<String> getAuthorities() {
+
         List<String> authorities = new ArrayList<>();
 
         // Things
-        authorities.add("https://authorities.smartcosmos.net/things/create");
-        authorities.add("https://authorities.smartcosmos.net/things/read");
-        authorities.add("https://authorities.smartcosmos.net/things/update");
-        authorities.add("https://authorities.smartcosmos.net/things/delete");
+        String[] thingsAuthorities = {
+            "https://authorities.smartcosmos.net/things/create",
+            "https://authorities.smartcosmos.net/things/read",
+            "https://authorities.smartcosmos.net/things/update",
+            "https://authorities.smartcosmos.net/things/delete" };
+        authorities.addAll(Arrays.asList(thingsAuthorities));
 
         // Metadata
-        authorities.add("https://authorities.smartcosmos.net/metadata/create");
-        authorities.add("https://authorities.smartcosmos.net/metadata/read");
-        authorities.add("https://authorities.smartcosmos.net/metadata/update");
-        authorities.add("https://authorities.smartcosmos.net/metadata/delete");
+        String[] metadataAuthorities = {
+            "https://authorities.smartcosmos.net/metadata/create",
+            "https://authorities.smartcosmos.net/metadata/read",
+            "https://authorities.smartcosmos.net/metadata/update",
+            "https://authorities.smartcosmos.net/metadata/delete" };
+        authorities.addAll(Arrays.asList(metadataAuthorities));
 
         // Relationships
-        authorities.add("https://authorities.smartcosmos.net/relationships/create");
-        authorities.add("https://authorities.smartcosmos.net/relationships/read");
-        authorities.add("https://authorities.smartcosmos.net/relationships/delete");
+        String[] relationshipAuthorities = {
+            "https://authorities.smartcosmos.net/relationships/create",
+            "https://authorities.smartcosmos.net/relationships/read",
+            "https://authorities.smartcosmos.net/relationships/delete" };
+        authorities.addAll(Arrays.asList(relationshipAuthorities));
+
+        String[] profilesAuthorities = {
+            "https://profiles-authorities.smartcosmos.net/authentication/otp",
+            "https://profiles-authorities.smartcosmos.net/authentication/signature",
+            "https://profiles-authorities.smartcosmos.net/tag/properties/read",
+            "https://profiles-authorities.smartcosmos.net/tag/properties/definition",
+            "https://profiles-authorities.smartcosmos.net/query/batches",
+            "https://profiles-authorities.smartcosmos.net/query/tags",
+            "https://profiles-authorities.smartcosmos.net/tag/value/read",
+            "https://profiles-authorities.smartcosmos.net/tag/value/update",
+            "https://profiles-authorities.smartcosmos.net/tag/key/read",
+            "https://profiles-authorities.smartcosmos.net/tig/read"
+        };
+
+        authorities.addAll(Arrays.asList(profilesAuthorities));
 
         return authorities;
     }
