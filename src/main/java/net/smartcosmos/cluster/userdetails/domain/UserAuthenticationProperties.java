@@ -7,7 +7,7 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- *
+ * Configuration properties for dummy user.
  */
 @Data
 @ConfigurationProperties("smartcosmos.security.user")
