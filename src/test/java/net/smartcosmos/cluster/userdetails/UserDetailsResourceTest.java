@@ -25,8 +25,8 @@ import org.springframework.web.context.WebApplicationContext;
 import net.smartcosmos.cluster.userdetails.domain.AuthenticateDetails;
 import net.smartcosmos.cluster.userdetails.domain.AuthenticateRequest;
 
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.Matchers.not;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
@@ -115,7 +115,7 @@ public class UserDetailsResourceTest {
             .andExpect(jsonPath("$.userUrn", is(userUrn)))
             .andExpect(jsonPath("$.username", is(username)))
             .andExpect(jsonPath("$.passwordHash", not(isEmptyOrNullString())))
-            .andExpect(jsonPath("$.authorities", hasSize(11)))
+            .andExpect(jsonPath("$.authorities", hasSize(1)))
             .andReturn();
     }
 }
