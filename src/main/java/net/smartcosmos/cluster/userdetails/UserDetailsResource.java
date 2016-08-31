@@ -47,12 +47,10 @@ public class UserDetailsResource {
             passwordHash = passwordEncoder.encode(authentication.getCredentials());
         }
 
-        final String tenantUrn = "urn:account:uuid:53f452c2-5a01-44fd-9956-3ecff7c32b30";
-        final String userUrn = "urn:user:uuid:53f452c2-5a01-44fd-9956-3ecff7c32b30";
 
         return UserDto.builder()
-            .tenantUrn(tenantUrn)
-            .userUrn(userUrn)
+            .tenantUrn(userAuthenticationProperties.getTenantUrn())
+            .userUrn(userAuthenticationProperties.getUserUrn())
             .username(authentication.getName())
             .passwordHash(passwordHash)
             .authorities(userAuthenticationProperties.getAuthorities())
