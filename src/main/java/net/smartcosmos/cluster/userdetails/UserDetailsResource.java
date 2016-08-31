@@ -1,8 +1,6 @@
 package net.smartcosmos.cluster.userdetails;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.validation.Valid;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.smartcosmos.cluster.userdetails.domain.AuthenticateRequest;
+import net.smartcosmos.cluster.userdetails.domain.UserAuthenticationProperties;
 import net.smartcosmos.cluster.userdetails.domain.UserDto;
 
 @RestController
@@ -25,59 +24,37 @@ import net.smartcosmos.cluster.userdetails.domain.UserDto;
 public class UserDetailsResource {
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
+    private UserAuthenticationProperties userAuthenticationProperties;
+    @Autowired
+    public UserDetailsResource(UserAuthenticationProperties userAuthenticationProperties) {
+        this.userAuthenticationProperties = userAuthenticationProperties;
+    }
     @RequestMapping(value = "authenticate", method = RequestMethod.POST)
     public UserDto authenticate(@RequestBody @Valid AuthenticateRequest authentication)
-                    throws UsernameNotFoundException, IOException {
+        throws UsernameNotFoundException, IOException {
 
         log.info("Requested information on username {} with {}", authentication.getName(),
-                authentication);
+                 authentication);
 
         String passwordHash = null;
-        if (StringUtils.isNotBlank(authentication.getCredentials())) {
-            String credentials = authentication.getCredentials();
-            if (!"password".equals(credentials)) {
+        if (StringUtils.equals(userAuthenticationProperties.getName(), authentication.getPrincipal())) {
+            if (!StringUtils.equals(userAuthenticationProperties.getPassword(), authentication.getCredentials())) {
                 log.error("Password incorrect.");
                 throw new BadCredentialsException("Invalid password");
             }
-            passwordHash = passwordEncoder.encode(credentials);
+            passwordHash = passwordEncoder.encode(authentication.getCredentials());
         }
 
-        final String accountUrn = "urn:account:uuid:53f452c2-5a01-44fd-9956-3ecff7c32b30";
-        final String userUrn = "urn:user:uuid:53f452c2-5a01-44fd-9956-3ecff7c32b30";
 
-        return UserDto.builder().tenantUrn(accountUrn).userUrn(userUrn)
-            .username(authentication.getName()).passwordHash(passwordHash)
-            .authorities(getAuthorities())
+        return UserDto.builder()
+            .tenantUrn(userAuthenticationProperties.getTenantUrn())
+            .userUrn(userAuthenticationProperties.getUserUrn())
+            .username(authentication.getName())
+            .passwordHash(passwordHash)
+            .authorities(userAuthenticationProperties.getAuthorities())
             .build();
     }
 
-    /**
-     * Return all available authorities
-     *
-     * @return List of authorities
-     */
-    private List<String> getAuthorities() {
-        List<String> authorities = new ArrayList<>();
-
-        // Things
-        authorities.add("https://authorities.smartcosmos.net/things/create");
-        authorities.add("https://authorities.smartcosmos.net/things/read");
-        authorities.add("https://authorities.smartcosmos.net/things/update");
-        authorities.add("https://authorities.smartcosmos.net/things/delete");
-
-        // Metadata
-        authorities.add("https://authorities.smartcosmos.net/metadata/create");
-        authorities.add("https://authorities.smartcosmos.net/metadata/read");
-        authorities.add("https://authorities.smartcosmos.net/metadata/update");
-        authorities.add("https://authorities.smartcosmos.net/metadata/delete");
-
-        // Relationships
-        authorities.add("https://authorities.smartcosmos.net/relationships/create");
-        authorities.add("https://authorities.smartcosmos.net/relationships/read");
-        authorities.add("https://authorities.smartcosmos.net/relationships/delete");
-
-        return authorities;
-    }
 }

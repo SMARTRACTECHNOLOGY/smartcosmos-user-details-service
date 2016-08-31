@@ -7,6 +7,7 @@ import java.util.Arrays;
 import org.junit.*;
 import org.junit.runner.*;
 import org.mockito.*;
+import org.mockito.internal.matchers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.annotation.ComponentScan;
@@ -25,8 +26,8 @@ import org.springframework.web.context.WebApplicationContext;
 import net.smartcosmos.cluster.userdetails.domain.AuthenticateDetails;
 import net.smartcosmos.cluster.userdetails.domain.AuthenticateRequest;
 
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.Matchers.not;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
@@ -86,22 +87,25 @@ public class UserDetailsResourceTest {
     @Test
     public void thatAuthenticateSucceeds() throws Exception {
 
-        final String accountUrn = "urn:account:uuid:53f452c2-5a01-44fd-9956-3ecff7c32b30";
-        final String userUrn = "urn:user:uuid:53f452c2-5a01-44fd-9956-3ecff7c32b30";
-        final String username = "user";
+        final String tenantUrn = "urn:tenant:uuid:DAF0D088-75A5-4C65-B331-24F26A30A331";
+        final String userUrn = "urn:user:uuid:6E3718FA-3DDD-4079-89C4-D401FAC78CA1";
+        final String usernameUnderTest = "jules";
+        final String passwordUnderTest = "hotpassword";
+        final String grantType = "password";
+        final String requestScope = "read";
 
         AuthenticateDetails details = AuthenticateDetails.builder()
-            .grantType("password")
-            .scope("read")
-            .username("user")
+            .grantType(grantType)
+            .scope(requestScope)
+            .username(usernameUnderTest)
             .build();
 
         AuthenticateRequest request = AuthenticateRequest.builder()
             .authorities(new ArrayList<>())
             .authenticated(false)
-            .principal("user")
-            .credentials("password")
-            .name("user")
+            .principal(usernameUnderTest)
+            .credentials(passwordUnderTest)
+            .name(usernameUnderTest)
             .details(details)
             .build();
 
@@ -111,11 +115,11 @@ public class UserDetailsResourceTest {
                 .contentType(APPLICATION_JSON_UTF8))
             .andExpect(status().isOk())
             .andExpect(content().contentType(APPLICATION_JSON_UTF8))
-            .andExpect(jsonPath("$.tenantUrn", is(accountUrn)))
+            .andExpect(jsonPath("$.tenantUrn", is(tenantUrn)))
             .andExpect(jsonPath("$.userUrn", is(userUrn)))
-            .andExpect(jsonPath("$.username", is(username)))
+            .andExpect(jsonPath("$.username", is(usernameUnderTest)))
             .andExpect(jsonPath("$.passwordHash", not(isEmptyOrNullString())))
-            .andExpect(jsonPath("$.authorities", hasSize(11)))
+            .andExpect(jsonPath("$.authorities", hasSize(new GreaterThan<>(0))))
             .andReturn();
     }
 }
