@@ -1,4 +1,4 @@
-= SMART COSMOS Development User Details Server Release Notes
+= SMART COSMOS Development User Details Service Release Notes
 
 == UNRELEASED
 
