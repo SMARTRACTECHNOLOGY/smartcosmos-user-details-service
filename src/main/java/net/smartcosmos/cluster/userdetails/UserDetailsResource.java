@@ -1,6 +1,7 @@
 package net.smartcosmos.cluster.userdetails;
 
 import java.io.IOException;
+import java.util.Collections;
 import javax.validation.Valid;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,14 +24,16 @@ import net.smartcosmos.cluster.userdetails.domain.UserDto;
 @Slf4j
 public class UserDetailsResource {
 
-    @Autowired
     private PasswordEncoder passwordEncoder;
-
     private UserAuthenticationProperties userAuthenticationProperties;
+
     @Autowired
-    public UserDetailsResource(UserAuthenticationProperties userAuthenticationProperties) {
+    public UserDetailsResource(PasswordEncoder passwordEncoder, UserAuthenticationProperties userAuthenticationProperties) {
+
+        this.passwordEncoder = passwordEncoder;
         this.userAuthenticationProperties = userAuthenticationProperties;
     }
+
     @RequestMapping(value = "authenticate", method = RequestMethod.POST)
     public UserDto authenticate(@RequestBody @Valid AuthenticateRequest authentication)
         throws UsernameNotFoundException, IOException {
@@ -47,13 +50,13 @@ public class UserDetailsResource {
             passwordHash = passwordEncoder.encode(authentication.getCredentials());
         }
 
-
         return UserDto.builder()
             .tenantUrn(userAuthenticationProperties.getTenantUrn())
             .userUrn(userAuthenticationProperties.getUserUrn())
             .username(authentication.getName())
             .passwordHash(passwordHash)
-            .authorities(userAuthenticationProperties.getAuthorities())
+            .authorities(
+                userAuthenticationProperties.getAuthorities() != null ? userAuthenticationProperties.getAuthorities() : Collections.emptyList())
             .build();
     }
 

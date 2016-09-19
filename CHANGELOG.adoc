@@ -4,11 +4,12 @@
 
 === New Features
 
-No new features are added in this release.
+* User data and authorities can be configured in the configuration YAML
 
 === Bugfixes & Improvements
 
-* PROFILES-667: add zipkin starter for distributed tracing
+* PROFILES-667 Add zipkin starter for distributed tracing
+* OBJECTS-1024 Empty authority configuration throws `NullpointerException`
 
 == Release 3.0.0 (August 12, 2016)
 

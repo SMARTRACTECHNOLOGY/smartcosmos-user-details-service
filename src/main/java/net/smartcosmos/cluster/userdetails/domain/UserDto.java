@@ -2,7 +2,11 @@ package net.smartcosmos.cluster.userdetails.domain;
 
 import java.util.List;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NonNull;
+import lombok.ToString;
 
 /**
  * This is the response from the User Details Service that will contain the necessary
