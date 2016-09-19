@@ -11,7 +11,7 @@ import lombok.Data;
  * Configuration properties for dummy user.
  */
 @Data
-@ConfigurationProperties("smartcosmos.user")
+@ConfigurationProperties("smartcosmos.security.user")
 public class UserAuthenticationProperties {
 
     private String name = "user";
