@@ -4,7 +4,7 @@
 
 === New Features
 
-No new features are added in this release.
+* User data and authorities can be configured in the configuration YAML
 
 === Bugfixes & Improvements
 

@@ -38,6 +38,32 @@ This represents the array of *authorities* that the user (in this case with user
 
 Not to be confused with the credentials the **Auth Server** used to authenticate against the **User Details Service**.
 
+== Configuration
+
+The user information and authorities returned by the service can be configured:
+
+[source,yaml]
+----
+smartcosmos:
+  user:
+    name: user
+    password: password
+    tenant-urn: urn:tenant:uuid:DAF0D088-75A5-4C65-B331-24F26A30A331
+    user-urn: urn:user:uuid:6E3718FA-3DDD-4079-89C4-D401FAC78CA1
+    authorities:
+      - https://authorities.smartcosmos.net/things/create
+      - https://authorities.smartcosmos.net/things/read
+      - https://authorities.smartcosmos.net/things/update
+      - https://authorities.smartcosmos.net/things/delete
+      - https://authorities.smartcosmos.net/metadata/create
+      - https://authorities.smartcosmos.net/metadata/read
+      - https://authorities.smartcosmos.net/metadata/update
+      - https://authorities.smartcosmos.net/metadata/delete
+      - https://authorities.smartcosmos.net/relationships/create
+      - https://authorities.smartcosmos.net/relationships/read
+      - https://authorities.smartcosmos.net/relationships/delete
+----
+
 == Not a Production Service
 
 The User Details Service outlined here is not meant for production use, and is merely provided here as an example and tool for use in development.  In a production environment, you would want to provide a robust backend authentication device using something like LDAP or https://stormpath.com/[Stormpath]
