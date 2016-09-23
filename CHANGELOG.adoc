@@ -5,6 +5,7 @@
 === New Features
 
 * User data and authorities can be configured in the configuration YAML
+* User data is validated before returned, invalid data will result in `400 Bad Request` responses
 
 === Bugfixes & Improvements
 
