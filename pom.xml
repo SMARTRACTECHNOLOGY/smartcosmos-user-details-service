@@ -14,7 +14,7 @@
     <name>SMART COSMOS User Details Service</name>
     <description>Retrieves User Detail Information for use in Authentication</description>
     <properties>
-        <start-class>net.smartcosmos.cluster.userdetails.UserDetailsService</start-class>
+        <start-class>net.smartcosmos.cluster.userdetails.DevelopmentUserDetailsService</start-class>
     </properties>
     <dependencies>
         <dependency>
