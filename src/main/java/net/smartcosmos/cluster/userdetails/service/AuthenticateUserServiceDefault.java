@@ -28,7 +28,7 @@ public class AuthenticateUserServiceDefault implements AuthenticateUserService {
     @Override
     public ResponseEntity<?> authenticateUser(AuthenticateUserRequest request) {
 
-        log.info("Requested information on username {} with {}", request.getName(), request);
+        log.debug("Requested information on username {} with {}", request.getName(), request);
 
         try {
             UserDetails userDetails = userDetailsService.getUserDetails(request.getName(), request.getCredentials());
@@ -41,7 +41,7 @@ public class AuthenticateUserServiceDefault implements AuthenticateUserService {
             return ResponseEntity.badRequest()
                 .body(new MessageResponse(CODE_ERROR, "Invalid data returned"));
         } catch (AuthenticationException e) {
-            log.info("Authenticating user {} failed. Request was {}", request.getName(), request);
+            log.info("Authenticating user {} failed. Request was {}. Exception: {}", request.getName(), request, e.toString());
             MessageResponse messageResponse = new MessageResponse(CODE_ERROR, e.getMessage());
             return ResponseEntity.badRequest()
                 .body(messageResponse);
