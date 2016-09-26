@@ -20,6 +20,9 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 
+import static net.smartcosmos.cluster.userdetails.config.UserAuthenticationProperties.DEFAULT_NAME;
+import static net.smartcosmos.cluster.userdetails.config.UserAuthenticationProperties.DEFAULT_PASSWORD;
+
 @RunWith(MockitoJUnitRunner.class)
 public class UserDetailsServiceDevelopmentTest {
 
@@ -58,8 +61,8 @@ public class UserDetailsServiceDevelopmentTest {
     @Test
     public void thatGetUserDetailsSucceeds() throws Exception {
 
-        final String expectedUsername = "user";
-        final String expectedPassword = "password";
+        final String expectedUsername = DEFAULT_NAME;
+        final String expectedPassword = DEFAULT_PASSWORD;
 
         when(conversionService.convert(eq(userAuthenticationProperties), eq(UserDetails.class))).thenReturn(mockUserDetails);
 
@@ -72,7 +75,7 @@ public class UserDetailsServiceDevelopmentTest {
     @Test(expected = BadCredentialsException.class)
     public void thatGetUserDetailsInvalidPasswordFails() throws Exception {
 
-        final String expectedUsername = "user";
+        final String expectedUsername = DEFAULT_NAME;
         final String expectedPassword = "invalidPassword";
 
         userDetailsService.getUserDetails(expectedUsername, expectedPassword);
@@ -90,25 +93,25 @@ public class UserDetailsServiceDevelopmentTest {
     @Test(expected = IllegalArgumentException.class)
     public void thatNullPasswordFailsImmediately() throws Exception {
 
-        userDetailsService.getUserDetails("user", null);
+        userDetailsService.getUserDetails(DEFAULT_NAME, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void thatBlankPasswordFailsImmediately() throws Exception {
 
-        userDetailsService.getUserDetails("user", "");
+        userDetailsService.getUserDetails(DEFAULT_NAME, "");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void thatNullUserFailsImmediately() throws Exception {
 
-        userDetailsService.getUserDetails(null, "password");
+        userDetailsService.getUserDetails(null, DEFAULT_PASSWORD);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void thatBlankUserFailsImmediately() throws Exception {
 
-        userDetailsService.getUserDetails("", "password");
+        userDetailsService.getUserDetails("", DEFAULT_PASSWORD);
     }
 
     // endregion
