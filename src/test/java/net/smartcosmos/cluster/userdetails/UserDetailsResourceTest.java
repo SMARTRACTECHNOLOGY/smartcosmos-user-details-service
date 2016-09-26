@@ -24,7 +24,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import net.smartcosmos.cluster.userdetails.domain.AuthenticateDetails;
-import net.smartcosmos.cluster.userdetails.domain.AuthenticateRequest;
+import net.smartcosmos.cluster.userdetails.domain.AuthenticateUserRequest;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -39,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@SpringApplicationConfiguration(classes = { UserDetailsService.class })
+@SpringApplicationConfiguration(classes = { DevelopmentUserDetailsService.class })
 @ActiveProfiles("test")
 @ComponentScan
 public class UserDetailsResourceTest {
@@ -66,7 +66,8 @@ public class UserDetailsResourceTest {
 
     @Before
     public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(getClass());
+
+        MockitoAnnotations.initMocks(this);
 
         this.mockMvc = MockMvcBuilders
             .webAppContextSetup(webApplicationContext)
@@ -91,7 +92,7 @@ public class UserDetailsResourceTest {
         final String userUrn = "urn:user:uuid:6E3718FA-3DDD-4079-89C4-D401FAC78CA1";
         final String usernameUnderTest = "jules";
         final String passwordUnderTest = "hotpassword";
-        final String grantType = "password";
+        final String grantType = "credentials";
         final String requestScope = "read";
 
         AuthenticateDetails details = AuthenticateDetails.builder()
@@ -100,7 +101,7 @@ public class UserDetailsResourceTest {
             .username(usernameUnderTest)
             .build();
 
-        AuthenticateRequest request = AuthenticateRequest.builder()
+        AuthenticateUserRequest request = AuthenticateUserRequest.builder()
             .authorities(new ArrayList<>())
             .authenticated(false)
             .principal(usernameUnderTest)
