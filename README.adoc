@@ -45,23 +45,24 @@ The user information and authorities returned by the service can be configured:
 [source,yaml]
 ----
 smartcosmos:
-  user:
-    name: user
-    password: password
-    tenant-urn: urn:tenant:uuid:DAF0D088-75A5-4C65-B331-24F26A30A331
-    user-urn: urn:user:uuid:6E3718FA-3DDD-4079-89C4-D401FAC78CA1
-    authorities:
-      - https://authorities.smartcosmos.net/things/create
-      - https://authorities.smartcosmos.net/things/read
-      - https://authorities.smartcosmos.net/things/update
-      - https://authorities.smartcosmos.net/things/delete
-      - https://authorities.smartcosmos.net/metadata/create
-      - https://authorities.smartcosmos.net/metadata/read
-      - https://authorities.smartcosmos.net/metadata/update
-      - https://authorities.smartcosmos.net/metadata/delete
-      - https://authorities.smartcosmos.net/relationships/create
-      - https://authorities.smartcosmos.net/relationships/read
-      - https://authorities.smartcosmos.net/relationships/delete
+  security:
+    user:
+      name: user
+      password: password
+      tenant-urn: urn:tenant:uuid:DAF0D088-75A5-4C65-B331-24F26A30A331
+      user-urn: urn:user:uuid:6E3718FA-3DDD-4079-89C4-D401FAC78CA1
+      authorities:
+        - https://authorities.smartcosmos.net/things/create
+        - https://authorities.smartcosmos.net/things/read
+        - https://authorities.smartcosmos.net/things/update
+        - https://authorities.smartcosmos.net/things/delete
+        - https://authorities.smartcosmos.net/metadata/create
+        - https://authorities.smartcosmos.net/metadata/read
+        - https://authorities.smartcosmos.net/metadata/update
+        - https://authorities.smartcosmos.net/metadata/delete
+        - https://authorities.smartcosmos.net/relationships/create
+        - https://authorities.smartcosmos.net/relationships/read
+        - https://authorities.smartcosmos.net/relationships/delete
 ----
 
 == Not a Production Service
