@@ -16,7 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import net.smartcosmos.cluster.userdetails.config.UserAuthenticationProperties;
-import net.smartcosmos.cluster.userdetails.domain.UserDetails;
+import net.smartcosmos.userdetails.domain.UserDetails;
+import net.smartcosmos.userdetails.service.UserDetailsService;
 
 /**
  * User Details Service implementation that uses hard-coded user details from the configuration.
