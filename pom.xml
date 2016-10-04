@@ -12,8 +12,8 @@
     <artifactId>smartcosmos-user-details-service</artifactId>
     <version>3.0.1-SNAPSHOT</version>
 
-    <name>SMART COSMOS User Details Service</name>
-    <description>Retrieves User Detail Information for use in Authentication</description>
+    <name>SMART COSMOS Development User Details Service</name>
+    <description>Retrieves User Detail Information for use in Authentication from the Configuration</description>
     <properties>
         <start-class>net.smartcosmos.cluster.userdetails.DevelopmentUserDetailsService</start-class>
     </properties>
