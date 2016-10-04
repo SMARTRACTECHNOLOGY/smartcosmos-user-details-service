@@ -1,25 +1,8 @@
-server:
-  port: 42000
-
-#security:
-#  user:
-#    password: password
-
-security:
-  ignored: authenticate
-
-logging:
-  level:
-    ROOT: INFO
-    net.smartcosmos: TRACE
-    org.springframework.security: TRACE
-    org.springframework.web: TRACE
-    #org.springframework.beans: TRACE
-    com.netflix.eureka.registry: WARN
-    springfox: TRACE
-
-# springfox:
-#    documentation:
-#        swagger:
-#            v2:
-#                path: swagger
+project:
+  artifactId: smartcosmos-user-details-service
+spring:
+  application:
+    name: @project.artifactId@
+  cloud:
+    config:
+      enabled: false
