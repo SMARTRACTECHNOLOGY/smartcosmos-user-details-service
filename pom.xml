@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>net.smartcosmos</groupId>
@@ -11,12 +12,17 @@
     <artifactId>smartcosmos-user-details-service</artifactId>
     <version>3.0.1-SNAPSHOT</version>
 
-    <name>SMART COSMOS User Details Service</name>
-    <description>Retrieves User Detail Information for use in Authentication</description>
+    <name>SMART COSMOS Development User Details Service</name>
+    <description>Retrieves User Detail Information for use in Authentication from the Configuration</description>
     <properties>
         <start-class>net.smartcosmos.cluster.userdetails.DevelopmentUserDetailsService</start-class>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>net.smartcosmos</groupId>
+            <artifactId>smartcosmos-user-details</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>

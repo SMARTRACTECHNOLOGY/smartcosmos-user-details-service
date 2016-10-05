@@ -13,7 +13,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import net.smartcosmos.cluster.userdetails.config.UserAuthenticationProperties;
-import net.smartcosmos.cluster.userdetails.domain.UserDetails;
+import net.smartcosmos.userdetails.domain.UserDetails;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.eq;

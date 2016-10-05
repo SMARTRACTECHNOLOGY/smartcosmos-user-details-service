@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import net.smartcosmos.cluster.userdetails.config.UserAuthenticationProperties;
-import net.smartcosmos.cluster.userdetails.domain.UserDetails;
+import net.smartcosmos.userdetails.domain.UserDetails;
 
 @Component
 public class UserAuthenticationPropertiesToUserDetailsConverter implements Converter<UserAuthenticationProperties, UserDetails> {

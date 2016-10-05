@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import net.smartcosmos.cluster.userdetails.config.UserAuthenticationProperties;
-import net.smartcosmos.cluster.userdetails.domain.UserDetails;
+import net.smartcosmos.userdetails.domain.UserDetails;
 
 import static java.util.Collections.emptySet;
 import static org.junit.Assert.*;
