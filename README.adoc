@@ -4,6 +4,7 @@ ifdef::env-github[:USER: SMARTRACTECHNOLOGY]
 ifdef::env-github[:REPO: smartcosmos-user-details-service]
 ifdef::env-github[:BRANCH: master]
 
+image::https://jenkins.smartcosmos.net/buildStatus/icon?job={USER}/{REPO}/{BRANCH}[Build Status, link=https://jenkins.smartcosmos.net/job/{USER}/job/{REPO}/job/{BRANCH}/]
 image::https://travis-ci.org/{USER}/{REPO}.svg?branch={BRANCH}[Build Status, link=https://travis-ci.org/{USER}/{REPO}]
 
 IMPORTANT: This is a deprecated repository, in favor of: https://github.com/SMARTRACTECHNOLOGY/smartcosmos-user-details-devkit[smartcosmos-user-details-devkit].
