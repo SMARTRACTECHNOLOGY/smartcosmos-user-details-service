@@ -3,12 +3,10 @@ package net.smartcosmos.cluster.userdetails;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 import net.smartcosmos.cluster.userdetails.config.UserAuthenticationProperties;
 
 @SpringBootApplication
-@EnableDiscoveryClient
 @EnableConfigurationProperties({ UserAuthenticationProperties.class })
 public class DevelopmentUserDetailsService {
 
