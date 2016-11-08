@@ -13,9 +13,11 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import net.smartcosmos.cluster.userdetails.config.UserDetailsDevelopmentServiceProperties;
+import net.smartcosmos.cluster.userdetails.domain.ConfiguredUserDetails;
 import net.smartcosmos.userdetails.domain.UserDetails;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
@@ -31,6 +33,9 @@ public class UserDetailsServiceDevelopmentTest {
 
     @Spy
     UserDetailsDevelopmentServiceProperties userDetailsDevelopmentServiceProperties;
+
+    @Mock
+    ConfiguredUserDetails configuredUserDetails;
 
     @Mock
     UserDetails mockUserDetails;
@@ -64,7 +69,7 @@ public class UserDetailsServiceDevelopmentTest {
         final String expectedUsername = DEFAULT_USER_NAME;
         final String expectedPassword = DEFAULT_PASSWORD;
 
-        when(conversionService.convert(eq(userDetailsDevelopmentServiceProperties), eq(UserDetails.class))).thenReturn(mockUserDetails);
+        when(conversionService.convert(any(ConfiguredUserDetails.class), eq(UserDetails.class))).thenReturn(mockUserDetails);
 
         UserDetails userDetails = userDetailsService.getUserDetails(expectedUsername, expectedPassword);
 
