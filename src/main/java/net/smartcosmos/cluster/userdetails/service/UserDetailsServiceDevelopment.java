@@ -12,10 +12,12 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import net.smartcosmos.cluster.userdetails.config.UserAuthenticationProperties;
+import net.smartcosmos.cluster.userdetails.config.UserDetailsDevelopmentServiceProperties;
+import net.smartcosmos.cluster.userdetails.domain.ConfiguredUserDetails;
 import net.smartcosmos.userdetails.domain.UserDetails;
 import net.smartcosmos.userdetails.service.UserDetailsService;
 
@@ -26,19 +28,22 @@ import net.smartcosmos.userdetails.service.UserDetailsService;
 @Service
 public class UserDetailsServiceDevelopment implements UserDetailsService {
 
-    private final ConversionService conversionService;
-    private final UserAuthenticationProperties userAuthenticationProperties;
+    private final UserDetailsDevelopmentServiceProperties userDetails;
     private final Validator validator;
+    private final PasswordEncoder passwordEncoder;
+    private final ConversionService conversionService;
 
     @Autowired
     public UserDetailsServiceDevelopment(
         ConversionService conversionService,
-        UserAuthenticationProperties userAuthenticationProperties,
+        UserDetailsDevelopmentServiceProperties userDetails,
+        PasswordEncoder passwordEncoder,
         Validator validator) {
 
-        this.conversionService = conversionService;
-        this.userAuthenticationProperties = userAuthenticationProperties;
+        this.passwordEncoder = passwordEncoder;
+        this.userDetails = userDetails;
         this.validator = validator;
+        this.conversionService = conversionService;
     }
 
     @Override
@@ -47,15 +52,17 @@ public class UserDetailsServiceDevelopment implements UserDetailsService {
         Assert.isTrue(StringUtils.isNotBlank(username), "username may not be blank");
         Assert.isTrue(StringUtils.isNotBlank(password), "password may not be blank");
 
-        if (!username.equals(userAuthenticationProperties.getName())) {
+        ConfiguredUserDetails user = userDetails.getUsers().get(username);
+
+        if (user == null || !StringUtils.equals(user.getUsername(), username)) {
             throw new UsernameNotFoundException("Invalid username or password");
         }
 
-        if (!password.equals(userAuthenticationProperties.getPassword())) {
+        if (!StringUtils.equals(user.getPassword(), password)) {
             throw new BadCredentialsException("Invalid username or password");
         }
 
-        return conversionService.convert(userAuthenticationProperties, UserDetails.class);
+        return conversionService.convert(user, UserDetails.class);
     }
 
     @Override

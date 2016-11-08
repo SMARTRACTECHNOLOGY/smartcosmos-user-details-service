@@ -12,7 +12,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import net.smartcosmos.cluster.userdetails.config.UserAuthenticationProperties;
+import net.smartcosmos.cluster.userdetails.config.UserDetailsDevelopmentServiceProperties;
 import net.smartcosmos.userdetails.domain.UserDetails;
 
 import static org.junit.Assert.*;
@@ -20,8 +20,8 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 
-import static net.smartcosmos.cluster.userdetails.config.UserAuthenticationProperties.DEFAULT_NAME;
-import static net.smartcosmos.cluster.userdetails.config.UserAuthenticationProperties.DEFAULT_PASSWORD;
+import static net.smartcosmos.cluster.userdetails.config.UserDetailsDevelopmentServiceProperties.DEFAULT_PASSWORD;
+import static net.smartcosmos.cluster.userdetails.config.UserDetailsDevelopmentServiceProperties.DEFAULT_USER_NAME;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserDetailsServiceDevelopmentTest {
@@ -30,7 +30,7 @@ public class UserDetailsServiceDevelopmentTest {
     ConversionService conversionService;
 
     @Spy
-    UserAuthenticationProperties userAuthenticationProperties;
+    UserDetailsDevelopmentServiceProperties userDetailsDevelopmentServiceProperties;
 
     @Mock
     UserDetails mockUserDetails;
@@ -52,7 +52,7 @@ public class UserDetailsServiceDevelopmentTest {
     public void thatMockingWorks() {
 
         assertNotNull(conversionService);
-        assertNotNull(userAuthenticationProperties);
+        assertNotNull(userDetailsDevelopmentServiceProperties);
         assertNotNull(userDetailsService);
     }
 
@@ -61,10 +61,10 @@ public class UserDetailsServiceDevelopmentTest {
     @Test
     public void thatGetUserDetailsSucceeds() throws Exception {
 
-        final String expectedUsername = DEFAULT_NAME;
+        final String expectedUsername = DEFAULT_USER_NAME;
         final String expectedPassword = DEFAULT_PASSWORD;
 
-        when(conversionService.convert(eq(userAuthenticationProperties), eq(UserDetails.class))).thenReturn(mockUserDetails);
+        when(conversionService.convert(eq(userDetailsDevelopmentServiceProperties), eq(UserDetails.class))).thenReturn(mockUserDetails);
 
         UserDetails userDetails = userDetailsService.getUserDetails(expectedUsername, expectedPassword);
 
@@ -75,7 +75,7 @@ public class UserDetailsServiceDevelopmentTest {
     @Test(expected = BadCredentialsException.class)
     public void thatGetUserDetailsInvalidPasswordFails() throws Exception {
 
-        final String expectedUsername = DEFAULT_NAME;
+        final String expectedUsername = DEFAULT_USER_NAME;
         final String expectedPassword = "invalidPassword";
 
         userDetailsService.getUserDetails(expectedUsername, expectedPassword);
@@ -93,13 +93,13 @@ public class UserDetailsServiceDevelopmentTest {
     @Test(expected = IllegalArgumentException.class)
     public void thatNullPasswordFailsImmediately() throws Exception {
 
-        userDetailsService.getUserDetails(DEFAULT_NAME, null);
+        userDetailsService.getUserDetails(DEFAULT_USER_NAME, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void thatBlankPasswordFailsImmediately() throws Exception {
 
-        userDetailsService.getUserDetails(DEFAULT_NAME, "");
+        userDetailsService.getUserDetails(DEFAULT_USER_NAME, "");
     }
 
     @Test(expected = IllegalArgumentException.class)
