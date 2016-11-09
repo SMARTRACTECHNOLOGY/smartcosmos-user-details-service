@@ -7,10 +7,16 @@ import javax.validation.Validator;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.*;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.boot.test.ConfigFileApplicationContextInitializer;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import net.smartcosmos.cluster.userdetails.config.UserDetailsDevelopmentServiceProperties;
 import net.smartcosmos.cluster.userdetails.domain.ConfiguredUserDetails;
@@ -22,11 +28,19 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 
-import static net.smartcosmos.cluster.userdetails.config.UserDetailsDevelopmentServiceProperties.DEFAULT_PASSWORD;
-import static net.smartcosmos.cluster.userdetails.config.UserDetailsDevelopmentServiceProperties.DEFAULT_USER_NAME;
-
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@ActiveProfiles("test")
+@SpringApplicationConfiguration(classes = UserDetailsDevelopmentServiceProperties.class, initializers = ConfigFileApplicationContextInitializer.class)
+@ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 public class UserDetailsServiceDevelopmentTest {
+
+    private static String DEFAULT_USER_NAME = "jules";
+    private static String DEFAULT_PASSWORD = "pwd";
+
+    @Configuration
+    static class ContextConfiguration {
+
+    }
 
     @Mock
     ConversionService conversionService;
@@ -46,6 +60,12 @@ public class UserDetailsServiceDevelopmentTest {
 
     @InjectMocks
     UserDetailsServiceDevelopment userDetailsService;
+
+    @Before
+    public void setUp() throws Exception {
+
+        MockitoAnnotations.initMocks(this);
+    }
 
     @After
     public void tearDown() {

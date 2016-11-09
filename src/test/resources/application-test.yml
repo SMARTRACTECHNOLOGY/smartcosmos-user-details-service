@@ -23,14 +23,6 @@ smartcosmos:
         - https://authorities.smartcosmos.net/relationships/create
 
 logging:
-  pattern:
-    console: "%d %-5level %logger : %msg%n"
   level:
     ROOT: INFO
-    #net.smartcosmos: TRACE
-    org.springframework: WARN
-    #org.springframework.security: TRACE
-    org.springframework.web: TRACE
-    #org.springframework.beans: TRACE
-    com.netflix.eureka.registry: WARN
-    springfox: TRACE
+    org.springframework.beans: TRACE
