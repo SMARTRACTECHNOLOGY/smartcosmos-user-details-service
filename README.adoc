@@ -41,7 +41,7 @@ Not to be confused with the credentials the **Auth Server** used to authenticate
 
 == Configuration
 
-The user information and authorities returned by the service are configured in the service config.  Multiple users can eb configured as shown in the following example.
+The user information and authorities returned by the service are configured in the service config.  Multiple users can be configured as shown in the following example.
 
 [source,yaml]
 ----
