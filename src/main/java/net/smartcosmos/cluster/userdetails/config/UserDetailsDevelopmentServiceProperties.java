@@ -38,8 +38,6 @@ public class UserDetailsDevelopmentServiceProperties {
         .authorities(DEFAULT_AUTHORITIES)
         .build();
 
-    private Map<String, ConfiguredUserDetails> users = new HashMap<String, ConfiguredUserDetails>() {{
-        put(DEFAULT_USER_NAME, defaultUserDetails);
-    }};
+    private Map<String, ConfiguredUserDetails> users = new HashMap<>();
 
 }
