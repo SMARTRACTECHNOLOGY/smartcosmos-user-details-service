@@ -6,6 +6,7 @@
 
 * User data and authorities can be configured in the configuration YAML
 * User data is validated before returned, invalid data will result in `400 Bad Request` responses
+* Allow multiple users to be configured in the service config file
 
 === Bugfixes & Improvements
 

@@ -10,9 +10,9 @@ security:
 
 smartcosmos:
   security:
-    user:
+    users[jules]:
       name: jules
-      password: hotpassword
+      password: pwd
       tenant-urn: urn:tenant:uuid:DAF0D088-75A5-4C65-B331-24F26A30A331
       user-urn: urn:user:uuid:6E3718FA-3DDD-4079-89C4-D401FAC78CA1
       authorities:
@@ -23,14 +23,6 @@ smartcosmos:
         - https://authorities.smartcosmos.net/relationships/create
 
 logging:
-  pattern:
-    console: "%d %-5level %logger : %msg%n"
   level:
     ROOT: INFO
-    #net.smartcosmos: TRACE
-    org.springframework: WARN
-    #org.springframework.security: TRACE
-    org.springframework.web: TRACE
-    #org.springframework.beans: TRACE
-    com.netflix.eureka.registry: WARN
-    springfox: TRACE
+    org.springframework.beans: TRACE

@@ -1,13 +1,15 @@
 package net.smartcosmos.cluster.userdetails;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Import;
 
-import net.smartcosmos.cluster.userdetails.config.UserAuthenticationProperties;
+import net.smartcosmos.cluster.userdetails.config.UserDetailsDevelopmentConfiguration;
 
 @SpringBootApplication
-@EnableConfigurationProperties({ UserAuthenticationProperties.class })
+@EnableAutoConfiguration
+@Import(UserDetailsDevelopmentConfiguration.class)
 public class DevelopmentUserDetailsService {
 
     public static void main(String[] args) {

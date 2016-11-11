@@ -7,27 +7,27 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import net.smartcosmos.cluster.userdetails.config.UserAuthenticationProperties;
+import net.smartcosmos.cluster.userdetails.domain.ConfiguredUserDetails;
 import net.smartcosmos.userdetails.domain.UserDetails;
 
 @Component
-public class UserAuthenticationPropertiesToUserDetailsConverter implements Converter<UserAuthenticationProperties, UserDetails> {
+public class ConfiguredUserDeatailsToUserDetailsConverter implements Converter<ConfiguredUserDetails, UserDetails> {
 
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserAuthenticationPropertiesToUserDetailsConverter(PasswordEncoder passwordEncoder) {
+    public ConfiguredUserDeatailsToUserDetailsConverter(PasswordEncoder passwordEncoder) {
 
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public UserDetails convert(UserAuthenticationProperties source) {
+    public UserDetails convert(ConfiguredUserDetails source) {
 
         return UserDetails.builder()
             .tenantUrn(source.getTenantUrn())
             .userUrn(source.getUserUrn())
-            .username(source.getName())
+            .username(source.getUsername())
             .passwordHash(passwordEncoder.encode(source.getPassword()))
             .authorities(source.getAuthorities() != null ? source.getAuthorities() : Collections.emptyList())
             .build();
