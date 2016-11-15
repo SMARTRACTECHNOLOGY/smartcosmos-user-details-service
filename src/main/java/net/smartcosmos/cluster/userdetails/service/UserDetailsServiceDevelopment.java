@@ -66,6 +66,19 @@ public class UserDetailsServiceDevelopment implements UserDetailsService {
     }
 
     @Override
+    public UserDetails getUserDetails(String username) throws IllegalArgumentException, AuthenticationException {
+
+        Assert.isTrue(StringUtils.isNotBlank(username), "username may not be blank");
+        ConfiguredUserDetails user = userDetails.getUsers().get(username);
+
+        if (user == null || !StringUtils.equals(user.getUsername(), username)) {
+            throw new UsernameNotFoundException("Invalid username or password");
+        }
+
+        return conversionService.convert(user, UserDetails.class);
+    }
+
+    @Override
     public boolean isValid(UserDetails userDetails) {
 
         log.debug("Entity: {}", userDetails);
